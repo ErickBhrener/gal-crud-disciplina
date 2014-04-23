@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="disciplinas")
@@ -17,9 +20,14 @@ public class Disciplinas {
 	private Integer idDisciplina;
 	
 	@Column(name="cod_d",nullable=false)
+	@NotNull
+	@Size(min=7)
+//	@Pattern(regexp="",message="")
 	private String codDisciplina;
 	
 	@Column(name="nome",nullable=false)
+	@NotNull
+	@Pattern(regexp="[a-zA-Z\\sà-ùÀ-Ù]{0,}", message="Nome da disciplina não pode conter caracteres especiais")
 	private String nomeDisciplina;
 
 	public Disciplinas(String codDisciplina, String nomeDisciplina) {

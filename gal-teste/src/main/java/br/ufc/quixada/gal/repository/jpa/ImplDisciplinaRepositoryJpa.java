@@ -16,7 +16,7 @@ public class ImplDisciplinaRepositoryJpa implements DisciplinaRepository{
 	
 	public void save(Disciplinas disciplina) {
 		if(disciplina.getIdDisciplina() == null){
-			em.persist(disciplina);
+			em.persist(disciplina);			
 		}else
 			em.merge(disciplina);
 	}
