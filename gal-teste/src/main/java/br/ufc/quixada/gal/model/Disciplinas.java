@@ -5,12 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Entity
-@Table(name="disciplinas")
+//@Table(name="disciplinas")
 public class Disciplinas {
 	
 	@Id
@@ -19,13 +18,13 @@ public class Disciplinas {
 	private Integer idDisciplina;
 	
 	@Column(name="cod_d",nullable=false,unique=true)
+	@Pattern(regexp="^[a-zA-Z0-9]+",message="Não pode possuir caracteres especiais")
 	@NotNull(message="Campo deve ser preenchido")
-	//@Pattern(regexp="[A-Z\\[0-9]]{0,}",message="Não pode possuir caracteres especiais")
 	private String codDisciplina;
 	
 	@Column(name="nome",nullable=false)
-	@NotNull(message="Campo deve ser preenchido")
 	@Pattern(regexp="[a-zA-Z\\sà-ùÀ-Ù]{0,}", message="Nome da disciplina não pode conter caracteres especiais")
+	@NotNull(message="Campo deve ser preenchido")
 	private String nomeDisciplina;
 
 	public Disciplinas(String codDisciplina, String nomeDisciplina) {

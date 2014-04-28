@@ -24,21 +24,28 @@ public class DisciplinaController {
 		public String form() {
 		return "index";
 	}
-	
+	@RequestMapping("/disciplina-adicionada")
+	public String confirm(){
+		return "disciplina-adicionada";
+	}
 	@RequestMapping(value="inserirDisciplina",method = RequestMethod.POST)
 	public String inserir(@Valid Disciplinas disciplina, BindingResult result, HttpSession session) {
-		if(result.hasErrors()) {
+		if(disciplina.getCodDisciplina()==null || disciplina.getCodDisciplina().equals("")) {
 			System.out.println("Erro");
 			return "index";
 		}
-		if(ds.pesquisar(disciplina.getCodDisciplina(), disciplina.getNomeDisciplina())==null){
-			ds.inserir(disciplina);
-			session.setAttribute("message", "Disciplina inserida com sucesso");
-		}else{
-			session.setAttribute("message", "Esta disciplina já está cadastrada no banco");
+		if(disciplina.getNomeDisciplina()==null || disciplina.getNomeDisciplina().equals("")){
+			System.out.println("Erro");
 			return "index";
 		}
-		return "disciplina-adicionada";
+		
+		String redirect="index";
+		if(ds.pesquisar(disciplina.getCodDisciplina(), disciplina.getNomeDisciplina())==null){
+			ds.inserir(disciplina);
+			System.out.println("Disciplina adicionada com sucesso");
+			return "redirect:disciplina-adicionada";
+		}
+		return redirect;
 	}
 	
 }
