@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>Inserida com sucesso</h2>
+	<h2><% String msg = (String)session.getAttribute("message");
+	%><%msg.toString();%></h2>
 </body>
 </html>

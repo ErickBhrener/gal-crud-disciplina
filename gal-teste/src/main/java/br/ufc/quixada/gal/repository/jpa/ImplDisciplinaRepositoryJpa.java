@@ -15,10 +15,16 @@ public class ImplDisciplinaRepositoryJpa implements DisciplinaRepository{
 	private EntityManager em;
 	
 	public void save(Disciplinas disciplina) {
-		if(disciplina.getIdDisciplina() == null){
-			em.persist(disciplina);			
-		}else
-			em.merge(disciplina);
+		if(pesquisarDisciplina(disciplina.getCodDisciplina(), disciplina.getNomeDisciplina())==null){
+			if(disciplina.getIdDisciplina() == null){
+				em.persist(disciplina);			
+			}else
+				em.merge(disciplina);
+		}
+	}
+	
+	public Disciplinas pesquisarDisciplina(String cod, String nome){
+		return (Disciplinas)em.createQuery("from Disciplinas where cod_d = :cod", Disciplinas.class).setParameter("cod", cod).getSingleResult();
 	}
 
 }

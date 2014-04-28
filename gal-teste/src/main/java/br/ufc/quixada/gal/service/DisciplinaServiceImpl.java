@@ -20,5 +20,9 @@ public class DisciplinaServiceImpl implements DisciplinaService{
 	public void inserir(Disciplinas disciplina) {
 		dr.save(disciplina);
 	}
+	@Transactional
+	public Disciplinas pesquisar(String cod, String nome) {
+		return dr.pesquisarDisciplina(cod, nome);
+	}
 
 }

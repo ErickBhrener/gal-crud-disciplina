@@ -1,6 +1,7 @@
 package br.ufc.quixada.gal.web;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -25,11 +26,18 @@ public class DisciplinaController {
 	}
 	
 	@RequestMapping(value="inserirDisciplina",method = RequestMethod.POST)
-	public String inserir(@Valid Disciplinas disciplina, BindingResult result) {
+	public String inserir(@Valid Disciplinas disciplina, BindingResult result, HttpSession session) {
 		if(result.hasErrors()) {
+			System.out.println("Erro");
 			return "index";
 		}
-		ds.inserir(disciplina);
+		if(ds.pesquisar(disciplina.getCodDisciplina(), disciplina.getNomeDisciplina())==null){
+			ds.inserir(disciplina);
+			session.setAttribute("message", "Disciplina inserida com sucesso");
+		}else{
+			session.setAttribute("message", "Esta disciplina já está cadastrada no banco");
+			return "index";
+		}
 		return "disciplina-adicionada";
 	}
 	

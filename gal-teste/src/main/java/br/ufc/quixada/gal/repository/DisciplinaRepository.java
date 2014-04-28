@@ -5,5 +5,6 @@ import br.ufc.quixada.gal.model.Disciplinas;
 public interface DisciplinaRepository {
 	
 	public void save(Disciplinas disciplina);
+	public Disciplinas pesquisarDisciplina(String cod, String nome);
 	
 }

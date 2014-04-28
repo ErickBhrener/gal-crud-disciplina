@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="disciplinas")
@@ -19,14 +18,13 @@ public class Disciplinas {
 	@Column(name="id_d")
 	private Integer idDisciplina;
 	
-	@Column(name="cod_d",nullable=false)
-	@NotNull
-	@Size(min=7)
-//	@Pattern(regexp="",message="")
+	@Column(name="cod_d",nullable=false,unique=true)
+	@NotNull(message="Campo deve ser preenchido")
+	//@Pattern(regexp="[A-Z\\[0-9]]{0,}",message="Não pode possuir caracteres especiais")
 	private String codDisciplina;
 	
 	@Column(name="nome",nullable=false)
-	@NotNull
+	@NotNull(message="Campo deve ser preenchido")
 	@Pattern(regexp="[a-zA-Z\\sà-ùÀ-Ù]{0,}", message="Nome da disciplina não pode conter caracteres especiais")
 	private String nomeDisciplina;
 
