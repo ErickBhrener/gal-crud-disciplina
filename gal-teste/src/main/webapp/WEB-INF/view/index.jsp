@@ -7,6 +7,7 @@
 <title>Cadastro de Disciplinas</title>
 </head>
 <body>
+	<h3>${message}</h3>
 	<form action="inserirDisciplina" method="post">
 	Código da Disciplina: <input type="text" name="codDisciplina"/><br/>
 	<form:errors path="disciplinas.codDisciplina" cssStyle="color:red"/>

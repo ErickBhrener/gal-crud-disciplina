@@ -1,5 +1,7 @@
 package br.ufc.quixada.gal.repository.jpa;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -23,12 +25,15 @@ public class ImplDisciplinaRepositoryJpa implements DisciplinaRepository{
 	}
 	
 	public Disciplinas pesquisarDisciplina(String cod, String nome){
+		List<Disciplinas> results = null;
 		try{
-			return (Disciplinas)em.createQuery("from Disciplinas where cod_d =:cod", Disciplinas.class).setParameter("cod", cod).getSingleResult();
+			results = em.createQuery("from Disciplinas where cod_d =:cod", Disciplinas.class).setParameter("cod", cod).getResultList();
+			if(!(results.isEmpty()))
+				return results.get(0);
 		}catch(NoResultException nre){
 			
-			return null;
 		}
+		return null;
 	}
 
 }
